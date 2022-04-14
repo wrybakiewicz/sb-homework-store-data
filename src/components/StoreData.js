@@ -7,13 +7,16 @@ export default function StoreData() {
 
     const storeData = async () => {
         console.log("Storing data " + data)
-        const node = await create()
+        const node = await create({repo: 'ok' + Math.random()})
         const cid = await node.add(data)
         console.log("Data stored on: " + cid.path)
         setDataLink(cid.path)
     }
 
     return <div>
+        <h3>
+            Store data
+        </h3>
         <input
             type="text"
             value={data}
