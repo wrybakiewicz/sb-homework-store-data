@@ -20,6 +20,15 @@ contract NFT is ERC721URIStorage, ERC721Enumerable, Ownable {
         return newItemId;
     }
 
+    function getOwnedTokenIds(address _owner) public view returns (uint[] memory) {
+        uint balance = balanceOf(_owner);
+        uint[] memory tokenIds = new uint[](balance);
+        for(uint i=0; i< balance; i++) {
+          tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
+        }
+        return tokenIds;
+    }
+
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
     internal
     override(ERC721, ERC721Enumerable)

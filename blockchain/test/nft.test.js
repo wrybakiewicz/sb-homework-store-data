@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const {BigNumber} = require("ethers");
 
 describe("NFT", function () {
   it("should mint two tokens", async function () {
@@ -23,5 +24,7 @@ describe("NFT", function () {
     await expect(mintTx2).to.emit(nft, "Transfer")
         .withArgs('0x0000000000000000000000000000000000000000', owner.address, 2);
     expect(await nft.totalSupply()).to.equal(2);
+    const ownedTokenIds = await nft.getOwnedTokenIds(owner.address)
+    expect(ownedTokenIds.map(_ => _.toNumber())).to.have.members([1, 2]);
   });
 });
